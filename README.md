@@ -1,2 +1,2 @@
-# todolist_project
-Launch School RB130 - Lesson 3
+# Launch School RB130 - Lesson 3 - Todo List Project
+
