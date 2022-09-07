@@ -18,7 +18,7 @@ PLATFORMS
 DEPENDENCIES
   minitest (~> 5.15)
   minitest-reporters (~> 1.5)
-  stamp (~> 0)
+  stamp (~> 0.6)
 
 RUBY VERSION
    ruby 2.7.0p0
