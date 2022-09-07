@@ -1,4 +1,4 @@
-# frozen_string_literal: false
+# frozen_string_literal: true
 
 require 'bundler/setup'
 require 'minitest/autorun'
@@ -10,12 +10,12 @@ require 'date'
 
 class TodoListTest < MiniTest::Test
   def setup
-    @todo1 = Todo.new('Buy milk')
-    @todo2 = Todo.new('Clean room')
-    @todo3 = Todo.new('Go to gym')
+    @todo1 = Todo.new(String.new('Buy milk'))
+    @todo2 = Todo.new(String.new('Clean room'))
+    @todo3 = Todo.new(String.new('Go to gym'))
     @todos = [@todo1, @todo2, @todo3]
 
-    @list = TodoList.new("Today's Todos")
+    @list = TodoList.new(String.new("Today's Todos"))
     @list.add(@todo1)
     @list.add(@todo2)
     @list.add(@todo3)
@@ -118,7 +118,7 @@ class TodoListTest < MiniTest::Test
     assert_equal(output, @list.to_s)
   end
 
-  def test_to_s_2
+  def test_to_s2
     output = <<-OUTPUT.chomp.gsub(/^\s+/, '')
     ---- Today's Todos ----
     [ ] Buy milk
@@ -130,7 +130,7 @@ class TodoListTest < MiniTest::Test
     assert_equal(output, @list.to_s)
   end
 
-  def test_to_s_3
+  def test_to_s3
     output = <<-OUTPUT.chomp.gsub(/^\s+/, '')
     ---- Today's Todos ----
     [X] Buy milk
@@ -170,7 +170,7 @@ class TodoListTest < MiniTest::Test
     list.add(@todo1)
 
     assert_equal(list.title, @list.title)
-    assert_equal(list.to_s, @list.select { |todo| todo.done? }.to_s)
+    assert_equal(list.to_s, @list.select(&:done?).to_s)
   end
 
   def test_no_due_date

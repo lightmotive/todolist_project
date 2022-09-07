@@ -1,4 +1,4 @@
-# frozen_string_literal: false
+# frozen_string_literal: true
 
 require 'bundler/setup'
 require 'stamp'
@@ -12,7 +12,7 @@ class Todo
 
   attr_accessor :title, :description, :done, :due_date
 
-  def initialize(title, description = '')
+  def initialize(title, description = String.new)
     @title = title
     @description = description
     @done = false
@@ -46,7 +46,6 @@ end
 # This class represents a collection of Todo objects.
 # You can perform typical collection-oriented actions
 # on a TodoList object, including iteration and selection.
-
 class TodoList
   attr_accessor :title
 
@@ -76,7 +75,7 @@ class TodoList
   end
 
   def done?
-    @todos.all? { |todo| todo.done? }
+    @todos.all?(&:done?)
   end
 
   def <<(todo)
@@ -109,7 +108,7 @@ class TodoList
   end
 
   def to_s
-    text = "---- #{title} ----\n"
+    text = String.new("---- #{title} ----\n")
     text << @todos.map(&:to_s).join("\n")
     text
   end
@@ -137,7 +136,7 @@ class TodoList
   end
 
   def all_done
-    select { |todo| todo.done? }
+    select(&:done?)
   end
 
   def all_not_done
@@ -145,14 +144,14 @@ class TodoList
   end
 
   def mark_done(title)
-    find_by_title(title) && find_by_title(title).done!
+    find_by_title(title)&.done!
   end
 
   def mark_all_done
-    each { |todo| todo.done! }
+    each(&:done!)
   end
 
   def mark_all_undone
-    each { |todo| todo.undone! }
+    each(&:undone!)
   end
 end
